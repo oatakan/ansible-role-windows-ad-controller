@@ -12,9 +12,6 @@
     Ensure: Present
   register: install_ad
 
-- debug:
-    var: install_ad
-
 - name: reboot if needed
   win_reboot:
   when: install_ad.reboot_required
@@ -25,6 +22,7 @@
     DomainName: "{{ dns_domain_name }}"
     DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
     DomainAdministratorCredential_password: "{{ domain_admin_password }}"
+    SafemodeAdministratorPassword_username: "Admin@{{ dns_domain_name }}"
     SafemodeAdministratorPassword_password: "{{ domain_admin_password }}"
     DnsDelegationCredential_username: "Admin@{{ dns_domain_name }}"
     DnsDelegationCredential_password: "{{ domain_admin_password }}"
