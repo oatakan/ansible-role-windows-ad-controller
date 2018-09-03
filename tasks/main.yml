@@ -24,7 +24,7 @@
     resource_name: xADDomain
     DomainName: "{{ dns_domain_name }}"
     DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
-    DomainAdministratorCredential_pasword: "{{ domain_admin_password }}"
+    DomainAdministratorCredential_password: "{{ domain_admin_password }}"
     SafemodeAdministratorPassword_password: "{{ domain_admin_password }}"
     DnsDelegationCredential_username: "Admin@{{ dns_domain_name }}"
     DnsDelegationCredential_password: "{{ domain_admin_password }}"
