@@ -1,0 +1,18 @@
+---
+
+dns_domain_name: "example.com"
+domain_admin_password: "Micr0soft!"
+
+users_password: "Micr0soft!Secure"
+users:
+  - name: user1
+    username: user1
+    email: user1
+  - name: user2
+    username: user2
+    email: user2
+
+ad_groups:
+  - name: Ansible Users
+    scope: global
+

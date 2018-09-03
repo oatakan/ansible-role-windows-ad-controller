@@ -1,0 +1,90 @@
+---
+
+- name: install required powershell module
+  win_psmodule:
+    name: xActiveDirectory
+    state: present
+
+- name: install AD
+  win_dsc:
+    resource_name: WindowsFeature
+    Name: AD-Domain-Services
+    Ensure: Present
+  register: install_ad
+
+- debug:
+    var: install_ad
+
+- name: reboot if needed
+  win_reboot:
+  when: install_ad.reboot_required
+
+- name: add domain
+  win_dsc:
+    resource_name: xADDomain
+    DomainName: "{{ dns_domain_name }}"
+    DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
+    DomainAdministratorCredential_pasword: "{{ domain_admin_password }}"
+    SafemodeAdministratorPassword: "{{ domain_admin_password }}"
+    DnsDelegationCredential_username: "Admin@{{ dns_domain_name }}"
+    DnsDelegationCredential_password: "{{ domain_admin_password }}"
+  register: install_ad
+
+- name: wait for AD domain
+  win_dsc:
+    resource_name: xWaitForADDomain
+    DomainName: "{{ dns_domain_name }}"
+    DomainUserCredential_username: "Admin@{{ dns_domain_name }}"
+    DomainUserCredential_password: "{{ domain_admin_password }}"
+
+- name: add groups
+  win_dsc:
+    resource_name: xADGroup
+    GroupName: "{{ item.name }}"
+    Scope: "{{ item.scope }}"
+    Ensure: Present
+  loop: "{{ ad_groups }}"
+
+- name: add domain admin user
+  win_dsc:
+    resource_name: xADUser
+    UserName: "Admin"
+    Password: "{{ domain_admin_password }}"
+    DomainName: "{{ dns_domain_name }}"
+    DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
+    DomainAdministratorCredential_password: "{{ domain_admin_password }}"
+    Enabled: True
+    Firstname: admin
+    Surname: user
+    Company: AnsibleByRedHat
+    Email: "Admin@{{ dns_domain_name }}"
+    Ensure: Present
+
+- name: add admin user to Domain Admins group
+  win_dsc:
+    resource_name: xADGroup
+    GroupName: Domain Admins
+    MembersToInclude: Admin
+
+- name: add domain users
+  win_dsc:
+    resource_name: xADUser
+    UserName: "{{ item.username }}"
+    Password: "{{ users_password }}"
+    DomainName: "{{ dns_domain_name }}"
+    DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
+    DomainAdministratorCredential_password: "{{ domain_admin_password }}"
+    Enabled: True
+    Firstname: "{{ item.username }}"
+    Surname: user
+    Company: AnsibleByRedHat
+    Email: "{{ item.username }}@{{ dns_domain_name }}"
+    Ensure: Present
+  loop: "{{ ad_users }}"
+
+- name: add domain users to groups
+  win_dsc:
+    resource_name: xADGroup
+    GroupName: "{{ item.1 }}"
+    MembersToInclude: "{{ item.0 }}"
+  loop: "{{ query('nested', ad_users, [ 'Ansible Users', 'Remote Desktop Users' ]) }}"
