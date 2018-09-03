@@ -24,8 +24,8 @@
     DomainAdministratorCredential_password: "{{ domain_admin_password }}"
     SafemodeAdministratorPassword_username: "Admin@{{ dns_domain_name }}"
     SafemodeAdministratorPassword_password: "{{ domain_admin_password }}"
-    DnsDelegationCredential_username: "Admin@{{ dns_domain_name }}"
-    DnsDelegationCredential_password: "{{ domain_admin_password }}"
+    #DnsDelegationCredential_username: "Admin@{{ dns_domain_name }}"
+    #DnsDelegationCredential_password: "{{ domain_admin_password }}"
   register: install_ad
 
 - name: wait for AD domain
