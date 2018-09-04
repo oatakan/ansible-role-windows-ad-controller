@@ -8,7 +8,7 @@
 - name: install AD
   win_dsc:
     resource_name: WindowsFeatureSet
-    Name: "{{ win_features }}"
+    Name: "{{ win_features | list }}"
     IncludeAllSubFeature: True
     Ensure: Present
   register: install_ad
