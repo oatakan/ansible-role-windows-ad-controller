@@ -7,8 +7,11 @@
 
 - name: install AD
   win_dsc:
-    resource_name: WindowsFeature
-    Name: AD-Domain-Services
+    resource_name: WindowsFeatureSet
+    Name:
+      - AD-Domain-Services
+      - DNS
+    IncludeAllSubFeature: True
     Ensure: Present
   register: install_ad
 
