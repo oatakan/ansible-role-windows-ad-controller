@@ -18,7 +18,8 @@
 
 - name: reboot if needed
   win_reboot:
-  when: install_ad.reboot_required
+  when: item.reboot_required
+  loop: "{{ install_ad.results }}"
 
 #- name: add domain
 #  win_dsc:
