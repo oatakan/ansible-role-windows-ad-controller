@@ -7,13 +7,14 @@
 
 - name: install AD
   win_dsc:
-    resource_name: WindowsFeatureSet
-    Name:
-      - AD-Domain-Services
-      - DNS
+    resource_name: WindowsFeature
+    Name: "{{ item }}"
     IncludeAllSubFeature: True
     Ensure: Present
   register: install_ad
+  loop:
+    - AD-Domain-Services
+    - DNS
 
 - name: reboot if needed
   win_reboot:
