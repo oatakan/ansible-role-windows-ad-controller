@@ -42,13 +42,13 @@
     resource_name: xWaitForADDomain
     DomainName: "{{ dns_domain_name }}"
 
-#- name: adjust password policy
-#  win_dsc:
-#    resource_name: xADDomainDefaultPasswordPolicy
-#    DomainName: "{{ dns_domain_name }}"
-#    ComplexityEnabled: False
-#    MinPasswordLength: 8
-#    PasswordHistoryCount: 10
+- name: adjust password policy
+  win_dsc:
+    resource_name: xADDomainDefaultPasswordPolicy
+    DomainName: "{{ dns_domain_name }}"
+    ComplexityEnabled: False
+    MinPasswordLength: 8
+    PasswordHistoryCount: 10
 
 - name: add groups
   win_dsc:
@@ -88,8 +88,8 @@
     UserPrincipalName: "{{ item.username }}@{{ dns_domain_name }}"
     Password_password: "{{ users_password }}"
     DomainName: "{{ dns_domain_name }}"
-    DomainAdministratorCredential_username: "{{ domain_admin_username }}@{{ dns_domain_name }}"
-    DomainAdministratorCredential_password: "{{ domain_admin_password }}"
+    #DomainAdministratorCredential_username: "{{ domain_admin_username }}@{{ dns_domain_name }}"
+    #DomainAdministratorCredential_password: "{{ domain_admin_password }}"
     Enabled: True
     GivenName: "{{ item.name }}"
     Surname: user
