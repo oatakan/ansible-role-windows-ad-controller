@@ -53,6 +53,13 @@
     #DomainUserCredential_username: "Admin@{{ dns_domain_name }}"
     #DomainUserCredential_password: "{{ domain_admin_password }}"
 
+- name: adjust password policy
+  win_dsc:
+    resource_name: xADDomainDefaultPasswordPolicy
+    DomainName: "{{ dns_domain_name }}"
+    ComplexityEnabled: False
+    MinPasswordLength: 8
+
 - name: add groups
   win_dsc:
     resource_name: xADGroup
@@ -64,16 +71,16 @@
 - name: add domain admin user
   win_dsc:
     resource_name: xADUser
-    UserName: "Admin2"
+    UserName: "Admin"
     Password_password: "{{ domain_admin_password }}"
     DomainName: "{{ dns_domain_name }}"
-    #DomainAdministratorCredential_username: "Admin2@{{ dns_domain_name }}"
+    #DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
     #DomainAdministratorCredential_password: "{{ domain_admin_password }}"
     Enabled: True
     GivenName: admin
     Surname: user
     Company: AnsibleByRedHat
-    EmailAddress: "Admin2@{{ dns_domain_name }}"
+    EmailAddress: "Admin@{{ dns_domain_name }}"
     Ensure: Present
 
 - name: add admin user to Domain Admins group
