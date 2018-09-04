@@ -1,9 +1,9 @@
 ---
 
 dns_domain_name: "example.com"
-domain_admin_password: "rcMi0fost!%Se09"
+domain_admin_password: "MiP@ssw0rd82"
 
-users_password: "Micr0soft!Secure"
+users_password: "PiP@ssw0rd14"
 users:
   - name: user1
     username: user1
