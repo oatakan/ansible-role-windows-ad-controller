@@ -22,25 +22,25 @@
   when: item.reboot_required
   loop: "{{ install_ad.results }}"
 
-#- name: add domain
-#  win_dsc:
-#    resource_name: xADDomain
-#    DomainName: "{{ dns_domain_name }}"
-#    DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
-#    DomainAdministratorCredential_password: "{{ domain_admin_password }}"
-#    SafemodeAdministratorPassword_username: "Admin@{{ dns_domain_name }}"
-#    SafemodeAdministratorPassword_password: "{{ domain_admin_password }}"
-#    #DnsDelegationCredential_username: "Admin@{{ dns_domain_name }}"
-#    #DnsDelegationCredential_password: "{{ domain_admin_password }}"
-#    ForestMode: WinThreshold
-#    DomainMode: WinThreshold
+- name: add domain
+  win_dsc:
+    resource_name: xADDomain
+    DomainName: "{{ dns_domain_name }}"
+    DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
+    DomainAdministratorCredential_password: "{{ domain_admin_password }}"
+    SafemodeAdministratorPassword_username: "Admin@{{ dns_domain_name }}"
+    SafemodeAdministratorPassword_password: "{{ domain_admin_password }}"
+    #DnsDelegationCredential_username: "Admin@{{ dns_domain_name }}"
+    #DnsDelegationCredential_password: "{{ domain_admin_password }}"
+    ForestMode: WinThreshold
+    DomainMode: WinThreshold
 #  register: add_domain
 
-- name: Create DNS Domain
-  win_domain:
-    dns_domain_name: "{{ dns_domain_name }}"
-    safe_mode_password: "{{ domain_admin_password }}"
-  register: add_domain
+#- name: Create DNS Domain
+#  win_domain:
+#    dns_domain_name: "{{ dns_domain_name }}"
+#    safe_mode_password: "{{ domain_admin_password }}"
+#  register: add_domain
 
 - name: reboot
   win_reboot:
@@ -53,13 +53,13 @@
     #DomainUserCredential_username: "Admin@{{ dns_domain_name }}"
     #DomainUserCredential_password: "{{ domain_admin_password }}"
 
-- name: adjust password policy
-  win_dsc:
-    resource_name: xADDomainDefaultPasswordPolicy
-    DomainName: "{{ dns_domain_name }}"
-    ComplexityEnabled: False
-    MinPasswordLength: 8
-    PasswordHistoryCount: 10
+#- name: adjust password policy
+#  win_dsc:
+#    resource_name: xADDomainDefaultPasswordPolicy
+#    DomainName: "{{ dns_domain_name }}"
+#    ComplexityEnabled: False
+#    MinPasswordLength: 8
+#    PasswordHistoryCount: 10
 
 - name: add groups
   win_dsc:
