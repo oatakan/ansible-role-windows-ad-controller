@@ -70,10 +70,10 @@
     DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
     DomainAdministratorCredential_password: "{{ domain_admin_password }}"
     Enabled: True
-    Firstname: admin
+    GivenName: admin
     Surname: user
     Company: AnsibleByRedHat
-    Email: "Admin@{{ dns_domain_name }}"
+    EmailAddress: "Admin@{{ dns_domain_name }}"
     Ensure: Present
 
 - name: add admin user to Domain Admins group
@@ -91,10 +91,10 @@
     DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
     DomainAdministratorCredential_password: "{{ domain_admin_password }}"
     Enabled: True
-    Firstname: "{{ item.username }}"
+    GivenName: "{{ item.username }}"
     Surname: user
     Company: AnsibleByRedHat
-    Email: "{{ item.username }}@{{ dns_domain_name }}"
+    EmailAddress: "{{ item.username }}@{{ dns_domain_name }}"
     Ensure: Present
   loop: "{{ ad_users }}"
 
