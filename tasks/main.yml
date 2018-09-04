@@ -14,7 +14,7 @@
 
 - name: reboot if needed
   win_reboot:
-  when: install_ad.reboot_required
+  #when: install_ad.reboot_required
 
 - name: add domain
   win_dsc:
@@ -27,6 +27,9 @@
     #DnsDelegationCredential_username: "Admin@{{ dns_domain_name }}"
     #DnsDelegationCredential_password: "{{ domain_admin_password }}"
   register: install_ad
+
+- name: reboot if needed
+  win_reboot:
 
 - name: wait for AD domain
   win_dsc:
