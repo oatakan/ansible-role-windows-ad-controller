@@ -110,6 +110,22 @@
 - name: add domain users to groups
   win_dsc:
     resource_name: xADGroup
+    GroupName: "{{ item }}"
+    MembersToInclude: "{{ ad_users | map(attribute='username') | list }}"
+  loop:
+    - Ansible Users
+    - Remote Desktop Users
+
+- name: add domain users to groups 2
+  win_dsc:
+    resource_name: xADGroup
     GroupName: "{{ item.1 }}"
-    MembersToInclude: "{{ item.0 }}"
+    MembersToInclude: "{{ item.0.username }}"
   loop: "{{ query('nested', ad_users, [ 'Ansible Users', 'Remote Desktop Users' ]) }}"
+
+ name: add users to Ansible Users group
+  win_dsc:
+    resource_name: xADGroup
+    GroupName: Ansible Users
+    MembersToInclude: "{{ item.username }}"
+  loop: "{{ ad_users }}"
