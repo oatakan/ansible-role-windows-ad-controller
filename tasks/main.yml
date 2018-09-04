@@ -111,6 +111,7 @@
     company: AnsibleByRedHat
     email: "{{ item.username }}@{{ dns_domain_name }}"
   loop: "{{ ad_users }}"
+  ignore_errors: yes
 
 - name: add domain users
   win_dsc:
@@ -127,6 +128,7 @@
     EmailAddress: "{{ item.username }}@{{ dns_domain_name }}"
     Ensure: Present
   loop: "{{ ad_users }}"
+  ignore_errors: yes
 
 - name: add domain users to groups
   win_dsc:
