@@ -103,7 +103,7 @@
     account_locked: no
     groups:
       - Ansible Users
-    password: "{{ users_password }}"
+    password: "{{ domain_admin_password }}"
     update_password: on_create
     password_expired: false
     firstname: "{{ item.name }}"
