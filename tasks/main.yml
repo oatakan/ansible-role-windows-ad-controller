@@ -57,7 +57,7 @@
   win_dsc:
     resource_name: xADGroup
     GroupName: "{{ item.name }}"
-    Scope: "{{ item.scope }}"
+    GroupScope: "{{ item.scope }}"
     Ensure: Present
   loop: "{{ ad_groups }}"
 
