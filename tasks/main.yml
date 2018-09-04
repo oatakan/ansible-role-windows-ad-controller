@@ -12,6 +12,7 @@
     IncludeAllSubFeature: True
     Ensure: Present
   register: install_ad
+  ignore_errors: yes
   loop:
     - AD-Domain-Services
     - DNS
