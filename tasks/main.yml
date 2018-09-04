@@ -15,6 +15,7 @@
   ignore_errors: yes
   loop:
     - AD-Domain-Services
+    - DNS
 
 - name: reboot if needed
   win_reboot:
@@ -41,6 +42,9 @@
 #    dns_domain_name: "{{ dns_domain_name }}"
 #    safe_mode_password: "{{ domain_admin_password }}"
 #  register: add_domain
+
+- debug:
+    var: add_domain
 
 - name: reboot
   win_reboot:
@@ -96,8 +100,8 @@
     UserName: "{{ item.username }}"
     Password_password: "{{ users_password }}"
     DomainName: "{{ dns_domain_name }}"
-    #DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
-    #DomainAdministratorCredential_password: "{{ domain_admin_password }}"
+    DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
+    DomainAdministratorCredential_password: "{{ domain_admin_password }}"
     Enabled: True
     GivenName: "{{ item.name }}"
     Surname: user
