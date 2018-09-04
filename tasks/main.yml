@@ -7,20 +7,17 @@
 
 - name: install AD
   win_dsc:
-    resource_name: WindowsFeature
-    Name: "{{ item }}"
+    resource_name: WindowsFeatureSet
+    Name: "{{ win_features }}"
     IncludeAllSubFeature: True
     Ensure: Present
   register: install_ad
   ignore_errors: yes
-  loop:
-    - AD-Domain-Services
-    - DNS
 
 - name: reboot if needed
   win_reboot:
-  when: item.reboot_required
-  loop: "{{ install_ad.results }}"
+  when: install_ad.reboot_required
+  #loop: "{{ install_ad.results }}"
 
 - name: add domain
   win_dsc:

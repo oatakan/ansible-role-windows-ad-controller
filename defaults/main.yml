@@ -16,3 +16,7 @@ ad_groups:
   - name: Ansible Users
     scope: global
 
+win_features:
+  - AD-Domain-Services
+  - DNS
+
