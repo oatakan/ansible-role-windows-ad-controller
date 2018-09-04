@@ -2,6 +2,7 @@
 
 dns_domain_name: "example.com"
 domain_admin_password: "sX{88h:_P#G:]TC#"
+domain_admin_username: Admin
 
 users_password: "PiP@ssw0rd14"
 ad_users:

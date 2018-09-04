@@ -26,9 +26,9 @@
   win_dsc:
     resource_name: xADDomain
     DomainName: "{{ dns_domain_name }}"
-    DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
+    DomainAdministratorCredential_username: "{{ domain_admin_username }}@{{ dns_domain_name }}"
     DomainAdministratorCredential_password: "{{ domain_admin_password }}"
-    SafemodeAdministratorPassword_username: "Admin@{{ dns_domain_name }}"
+    SafemodeAdministratorPassword_username: "{{ domain_admin_username }}@{{ dns_domain_name }}"
     SafemodeAdministratorPassword_password: "{{ domain_admin_password }}"
   register: add_domain
   ignore_errors: yes
@@ -61,14 +61,14 @@
 - name: add domain admin user
   win_dsc:
     resource_name: xADUser
-    UserName: "Admin"
+    UserName: "{{ domain_admin_username }}"
     Password_password: "{{ domain_admin_password }}"
     DomainName: "{{ dns_domain_name }}"
     Enabled: True
-    GivenName: admin
+    GivenName: "{{ domain_admin_username }}"
     Surname: user
     Company: AnsibleByRedHat
-    EmailAddress: "Admin@{{ dns_domain_name }}"
+    EmailAddress: "{{ domain_admin_username }}@{{ dns_domain_name }}"
     Ensure: Present
   ignore_errors: yes
 
@@ -76,7 +76,7 @@
   win_dsc:
     resource_name: xADGroup
     GroupName: Domain Admins
-    MembersToInclude: Admin
+    MembersToInclude: "{{ domain_admin_username }}"
   ignore_errors: yes
 
 - name: add user1
@@ -113,7 +113,7 @@
     UserName: "{{ item.username }}"
     Password_password: "{{ users_password }}"
     DomainName: "{{ dns_domain_name }}"
-    DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
+    DomainAdministratorCredential_username: "{{ domain_admin_username }}@{{ dns_domain_name }}"
     DomainAdministratorCredential_password: "{{ domain_admin_password }}"
     Enabled: True
     GivenName: "{{ item.name }}"
