@@ -7,17 +7,20 @@
 
 - name: install AD
   win_dsc:
-    resource_name: WindowsFeatureSet
-    Name: "{{ win_features | list }}"
+    resource_name: WindowsFeature
+    Name: "{{ item }}"
     IncludeAllSubFeature: True
     Ensure: Present
   register: install_ad
   ignore_errors: yes
+  loop:
+    - AD-Domain-Services
+    - DNS
 
 - name: reboot if needed
   win_reboot:
-  when: install_ad.reboot_required
-  #loop: "{{ install_ad.results }}"
+  when: item.reboot_required
+  loop: "{{ install_ad.results }}"
 
 - name: add domain
   win_dsc:
@@ -90,6 +93,24 @@
     resource_name: xADGroup
     GroupName: Domain Admins
     MembersToInclude: Admin
+
+- name: Add windows AD users
+  win_domain_user:
+    name: "{{ item.username }}"
+    upn: "{{ item.username }}@{{ dns_domain_name }}"
+    state: present
+    enabled: yes
+    account_locked: no
+    groups:
+      - Ansible Users
+    password: "{{ users_password }}"
+    update_password: on_create
+    password_expired: false
+    firstname: "{{ item.name }}"
+    surname: user
+    company: AnsibleByRedHat
+    email: "{{ item.username }}@{{ dns_domain_name }}"
+  loop: "{{ ad_users }}"
 
 - name: add domain users
   win_dsc:
