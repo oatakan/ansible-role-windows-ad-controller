@@ -1,11 +1,11 @@
 ---
 
-- name: install required powershell module
+- name: ensure required powershell module is present
   win_psmodule:
     name: xActiveDirectory
     state: present
 
-- name: install AD
+- name: enable windows features
   win_dsc:
     resource_name: WindowsFeature
     Name: "{{ item }}"
@@ -22,7 +22,7 @@
   when: item.reboot_required
   loop: "{{ install_ad.results }}"
 
-- name: add domain
+- name: add a new domain
   win_dsc:
     resource_name: xADDomain
     DomainName: "{{ dns_domain_name }}"
@@ -33,7 +33,7 @@
   register: add_domain
   ignore_errors: yes
 
-- name: reboot
+- name: reboot if needed
   win_reboot:
   when: add_domain.reboot_required
 
@@ -80,7 +80,7 @@
     resource_name: xADUser
     UserName: "{{ domain_admin_username }}"
     UserPrincipalName: "{{ domain_admin_username }}@{{ dns_domain_name }}"
-    Password_password: "{{ domain_admin_password }}"
+    Password: "{{ domain_admin_password }}"
     DomainName: "{{ dns_domain_name }}"
     Enabled: True
     GivenName: "{{ domain_admin_username }}"
