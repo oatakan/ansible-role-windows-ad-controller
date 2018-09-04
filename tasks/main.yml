@@ -34,7 +34,7 @@
     #DnsDelegationCredential_password: "{{ domain_admin_password }}"
     ForestMode: WinThreshold
     DomainMode: WinThreshold
-#  register: add_domain
+  register: add_domain
 
 #- name: Create DNS Domain
 #  win_domain:
