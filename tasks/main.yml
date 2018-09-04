@@ -14,7 +14,7 @@
 
 - name: reboot if needed
   win_reboot:
-  #when: install_ad.reboot_required
+  when: install_ad.reboot_required
 
 - name: add domain
   win_dsc:
@@ -26,6 +26,8 @@
     SafemodeAdministratorPassword_password: "{{ domain_admin_password }}"
     #DnsDelegationCredential_username: "Admin@{{ dns_domain_name }}"
     #DnsDelegationCredential_password: "{{ domain_admin_password }}"
+    ForestMode: WinThreshold
+    DomainMode: WinThreshold
   register: install_ad
 
 - name: reboot if needed
