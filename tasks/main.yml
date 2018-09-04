@@ -48,7 +48,7 @@
 
 - name: reboot
   win_reboot:
-  when: add_domain is changed
+  when: add_domain.reboot_required
 
 - name: wait for AD domain
   win_dsc:
