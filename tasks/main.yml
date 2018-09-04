@@ -61,14 +61,14 @@
 - name: add domain admin user
   win_dsc:
     resource_name: xADUser
-    UserName: "Admin2"
+    UserName: "Admin"
     Password_password: "{{ domain_admin_password }}"
     DomainName: "{{ dns_domain_name }}"
     Enabled: True
     GivenName: admin2
     Surname: user
     Company: AnsibleByRedHat
-    EmailAddress: "Admin2@{{ dns_domain_name }}"
+    EmailAddress: "Admin@{{ dns_domain_name }}"
     Ensure: Present
 
 - name: add admin user to Domain Admins group
@@ -76,6 +76,32 @@
     resource_name: xADGroup
     GroupName: Domain Admins
     MembersToInclude: Admin
+
+- name: add user1
+  win_dsc:
+    resource_name: xADUser
+    UserName: "user1"
+    Password_password: "{{ users_password }}"
+    DomainName: "{{ dns_domain_name }}"
+    Enabled: True
+    GivenName: user1
+    Surname: user
+    Company: AnsibleByRedHat
+    EmailAddress: "user1@{{ dns_domain_name }}"
+    Ensure: Present
+
+- name: add user2
+  win_dsc:
+    resource_name: xADUser
+    UserName: "user2"
+    Password_password: "{{ users_password }}"
+    DomainName: "{{ dns_domain_name }}"
+    Enabled: True
+    GivenName: user2
+    Surname: user
+    Company: AnsibleByRedHat
+    EmailAddress: "user2@{{ dns_domain_name }}"
+    Ensure: Present
 
 - name: add domain users
   win_dsc:
