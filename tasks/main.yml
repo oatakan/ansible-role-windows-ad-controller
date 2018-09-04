@@ -123,7 +123,7 @@
     MembersToInclude: "{{ item.0.username }}"
   loop: "{{ query('nested', ad_users, [ 'Ansible Users', 'Remote Desktop Users' ]) }}"
 
- name: add users to Ansible Users group
+- name: add users to Ansible Users group
   win_dsc:
     resource_name: xADGroup
     GroupName: Ansible Users
