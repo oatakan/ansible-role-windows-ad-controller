@@ -4,7 +4,7 @@ dns_domain_name: "example.com"
 domain_admin_password: "sX{88h:_P#G:]TC#"
 
 users_password: "PiP@ssw0rd14"
-users:
+ad_users:
   - name: user1
     username: user1
     email: user1
