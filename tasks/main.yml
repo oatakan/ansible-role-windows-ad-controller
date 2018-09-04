@@ -40,10 +40,11 @@
   win_domain:
     dns_domain_name: "{{ dns_domain_name }}"
     safe_mode_password: "{{ domain_admin_password }}"
-  register: windomain
+  register: add_domain
 
 - name: reboot
   win_reboot:
+  when: add_domain is changed
 
 - name: wait for AD domain
   win_dsc:
