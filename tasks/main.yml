@@ -35,6 +35,7 @@
     ForestMode: WinThreshold
     DomainMode: WinThreshold
   register: add_domain
+  ignore_errors: yes
 
 #- name: Create DNS Domain
 #  win_domain:
