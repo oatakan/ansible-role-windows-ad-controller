@@ -58,23 +58,6 @@
     Ensure: Present
   loop: "{{ ad_groups }}"
 
-- name: Add windows domain admin
-  win_domain_user:
-    name: "Admin"
-    upn: "Admin@{{ dns_domain_name }}"
-    state: present
-    enabled: yes
-    account_locked: no
-    groups:
-      - Domain Admins
-    password: "{{ domain_admin_password }}"
-    update_password: always
-    password_expired: false
-    firstname: admin
-    surname: user
-    company: AnsibleByRedHat
-    email: "Admin@{{ dns_domain_name }}"
-
 - name: add domain admin user
   win_dsc:
     resource_name: xADUser
@@ -107,8 +90,8 @@
     Password_username: "{{ item.username }}"
     Password_password: "{{ users_password }}"
     DomainName: "{{ dns_domain_name }}"
-    #DomainAdministratorCredential_username: "{{ domain_admin_username }}@{{ dns_domain_name }}"
-    #DomainAdministratorCredential_password: "{{ domain_admin_password }}"
+    DomainAdministratorCredential_username: "{{ domain_admin_username }}@{{ dns_domain_name }}"
+    DomainAdministratorCredential_password: "{{ domain_admin_password }}"
     Enabled: True
     GivenName: "{{ item.name }}"
     Surname: user
