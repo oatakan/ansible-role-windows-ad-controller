@@ -64,16 +64,16 @@
 - name: add domain admin user
   win_dsc:
     resource_name: xADUser
-    UserName: "Admin"
+    UserName: "Admin2"
     Password_password: "{{ domain_admin_password }}"
     DomainName: "{{ dns_domain_name }}"
-    #DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
+    #DomainAdministratorCredential_username: "Admin2@{{ dns_domain_name }}"
     #DomainAdministratorCredential_password: "{{ domain_admin_password }}"
     Enabled: True
     GivenName: admin
     Surname: user
     Company: AnsibleByRedHat
-    EmailAddress: "Admin@{{ dns_domain_name }}"
+    EmailAddress: "Admin2@{{ dns_domain_name }}"
     Ensure: Present
 
 - name: add admin user to Domain Admins group
