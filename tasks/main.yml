@@ -26,14 +26,14 @@
   win_dsc:
     resource_name: xADDomain
     DomainName: "{{ dns_domain_name }}"
-    DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
-    DomainAdministratorCredential_password: "{{ domain_admin_password }}"
+    #DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
+    #DomainAdministratorCredential_password: "{{ domain_admin_password }}"
     SafemodeAdministratorPassword_username: "Admin@{{ dns_domain_name }}"
     SafemodeAdministratorPassword_password: "{{ domain_admin_password }}"
     #DnsDelegationCredential_username: "Admin@{{ dns_domain_name }}"
     #DnsDelegationCredential_password: "{{ domain_admin_password }}"
-    ForestMode: WinThreshold
-    DomainMode: WinThreshold
+    #ForestMode: WinThreshold
+    #DomainMode: WinThreshold
   register: add_domain
   ignore_errors: yes
 
@@ -54,8 +54,6 @@
   win_dsc:
     resource_name: xWaitForADDomain
     DomainName: "{{ dns_domain_name }}"
-    #DomainUserCredential_username: "Admin@{{ dns_domain_name }}"
-    #DomainUserCredential_password: "{{ domain_admin_password }}"
 
 #- name: adjust password policy
 #  win_dsc:
@@ -79,8 +77,6 @@
     UserName: "Admin"
     Password_password: "{{ domain_admin_password }}"
     DomainName: "{{ dns_domain_name }}"
-    #DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
-    #DomainAdministratorCredential_password: "{{ domain_admin_password }}"
     Enabled: True
     GivenName: admin
     Surname: user
@@ -93,25 +89,6 @@
     resource_name: xADGroup
     GroupName: Domain Admins
     MembersToInclude: Admin
-
-- name: Add windows AD users
-  win_domain_user:
-    name: "{{ item.username }}"
-    upn: "{{ item.username }}@{{ dns_domain_name }}"
-    state: present
-    enabled: yes
-    account_locked: no
-    groups:
-      - Ansible Users
-    password: "{{ domain_admin_password }}"
-    update_password: on_create
-    password_expired: false
-    firstname: "{{ item.name }}"
-    surname: user
-    company: AnsibleByRedHat
-    email: "{{ item.username }}@{{ dns_domain_name }}"
-  loop: "{{ ad_users }}"
-  ignore_errors: yes
 
 - name: add domain users
   win_dsc:
