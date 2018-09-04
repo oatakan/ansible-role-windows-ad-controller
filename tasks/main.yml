@@ -30,21 +30,8 @@
     DomainAdministratorCredential_password: "{{ domain_admin_password }}"
     SafemodeAdministratorPassword_username: "Admin@{{ dns_domain_name }}"
     SafemodeAdministratorPassword_password: "{{ domain_admin_password }}"
-    #DnsDelegationCredential_username: "Admin@{{ dns_domain_name }}"
-    #DnsDelegationCredential_password: "{{ domain_admin_password }}"
-    #ForestMode: WinThreshold
-    #DomainMode: WinThreshold
   register: add_domain
   ignore_errors: yes
-
-#- name: Create DNS Domain
-#  win_domain:
-#    dns_domain_name: "{{ dns_domain_name }}"
-#    safe_mode_password: "{{ domain_admin_password }}"
-#  register: add_domain
-
-- debug:
-    var: add_domain
 
 - name: reboot
   win_reboot:
@@ -74,14 +61,14 @@
 - name: add domain admin user
   win_dsc:
     resource_name: xADUser
-    UserName: "Admin"
+    UserName: "Admin2"
     Password_password: "{{ domain_admin_password }}"
     DomainName: "{{ dns_domain_name }}"
     Enabled: True
-    GivenName: admin
+    GivenName: admin2
     Surname: user
     Company: AnsibleByRedHat
-    EmailAddress: "Admin@{{ dns_domain_name }}"
+    EmailAddress: "Admin2@{{ dns_domain_name }}"
     Ensure: Present
 
 - name: add admin user to Domain Admins group
