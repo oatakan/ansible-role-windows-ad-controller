@@ -15,7 +15,6 @@
   ignore_errors: yes
   loop:
     - AD-Domain-Services
-    - DNS
 
 - name: reboot if needed
   win_reboot:
