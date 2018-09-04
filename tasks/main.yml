@@ -67,8 +67,8 @@
     UserName: "Admin"
     Password_password: "{{ domain_admin_password }}"
     DomainName: "{{ dns_domain_name }}"
-    DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
-    DomainAdministratorCredential_password: "{{ domain_admin_password }}"
+    #DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
+    #DomainAdministratorCredential_password: "{{ domain_admin_password }}"
     Enabled: True
     GivenName: admin
     Surname: user
