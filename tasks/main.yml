@@ -97,7 +97,7 @@
   win_dsc:
     resource_name: xADUser
     UserName: "user2"
-    Password_password: "{{ domain_admin_password }}"
+    Password_password: "{{ users_password }}"
     DomainName: "{{ dns_domain_name }}"
     Enabled: True
     GivenName: user2
@@ -111,7 +111,7 @@
   win_dsc:
     resource_name: xADUser
     UserName: "{{ item.username }}"
-    Password_password: "{{ domain_admin_password }}"
+    Password_password: "{{ users_password }}"
     DomainName: "{{ dns_domain_name }}"
     DomainAdministratorCredential_username: "Admin@{{ dns_domain_name }}"
     DomainAdministratorCredential_password: "{{ domain_admin_password }}"
