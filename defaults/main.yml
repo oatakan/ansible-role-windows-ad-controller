@@ -1,7 +1,7 @@
 ---
 
 dns_domain_name: "example.com"
-domain_admin_password: "Micr0soft!Secure"
+domain_admin_password: "Micr0soft!"
 
 users_password: "Micr0soft!Secure"
 users:
