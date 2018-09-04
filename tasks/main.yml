@@ -104,6 +104,7 @@
     resource_name: xADUser
     UserName: "{{ item.username }}"
     UserPrincipalName: "{{ item.username }}@{{ dns_domain_name }}"
+    Password_username: "{{ item.username }}"
     Password_password: "{{ users_password }}"
     DomainName: "{{ dns_domain_name }}"
     #DomainAdministratorCredential_username: "{{ domain_admin_username }}@{{ dns_domain_name }}"
