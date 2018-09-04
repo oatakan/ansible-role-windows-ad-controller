@@ -59,7 +59,7 @@
     DomainName: "{{ dns_domain_name }}"
     ComplexityEnabled: False
     MinPasswordLength: 8
-    PasswordHistoryCount: 0
+    PasswordHistoryCount: 10
 
 - name: add groups
   win_dsc:
