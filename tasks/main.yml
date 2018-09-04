@@ -48,8 +48,8 @@
   win_dsc:
     resource_name: xWaitForADDomain
     DomainName: "{{ dns_domain_name }}"
-    DomainUserCredential_username: "Admin@{{ dns_domain_name }}"
-    DomainUserCredential_password: "{{ domain_admin_password }}"
+    #DomainUserCredential_username: "Admin@{{ dns_domain_name }}"
+    #DomainUserCredential_password: "{{ domain_admin_password }}"
 
 - name: add groups
   win_dsc:
