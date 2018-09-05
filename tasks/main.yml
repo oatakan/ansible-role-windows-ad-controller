@@ -32,8 +32,12 @@
   register: add_domain
   ignore_errors: yes
 
+- name: task1
+  set_fact:
+    parent_dn: "{{ dns_domain_name.split('.') | join('DC=,') }}"
+
 - debug:
-    var: add_domain
+    var: parent_dn
 
 - name: reboot if needed
   win_reboot:
