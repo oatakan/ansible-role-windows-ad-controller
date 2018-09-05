@@ -32,6 +32,9 @@
   register: add_domain
   ignore_errors: yes
 
+- debug:
+    var: add_domain
+
 - name: reboot if needed
   win_reboot:
   when: add_domain.reboot_required
