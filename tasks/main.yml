@@ -34,7 +34,7 @@
 
 - name: task1
   set_fact:
-    parent_dn: "{{ dns_domain_name.split('.') | join('DC=,') }}"
+    parent_dn: "DC={{ dns_domain_name.split('.') | join(',DC=') }}"
 
 - debug:
     var: parent_dn
