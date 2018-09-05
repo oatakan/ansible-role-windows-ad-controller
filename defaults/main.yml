@@ -16,3 +16,8 @@ ad_users:
 ad_groups:
   - name: Ansible Users
     scope: global
+
+additional_ous:
+  - name: Company OU
+    path: 'dc=company,dc=com'
+    description: Test organization

@@ -49,6 +49,15 @@
     MinPasswordLength: 8
     PasswordHistoryCount: 10
 
+- name: add additional OU
+  win_dsc:
+    resource_name: xADOrganizationalUnit
+    Name: "{{ item.name }}"
+    Path: "{{ item.path }}"
+    Description: "{{ item.description }}"
+    Ensure: Present
+  loop: "{{ additional_ous }}"
+
 - name: add groups
   win_dsc:
     resource_name: xADGroup
