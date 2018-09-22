@@ -122,3 +122,10 @@
   loop:
     - Ansible Users
     - Remote Desktop Users
+
+- name: ensure registry service is running
+  win_dsc:
+    resource_name: Service
+    Name: TermService
+    StartupType: Automatic
+    State: Running
