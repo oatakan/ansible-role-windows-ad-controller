@@ -18,9 +18,9 @@
 
 - name: reboot if needed
   win_reboot:
-  when: item.reboot_required
-  loop: "{{ install_ad.results }}"
-  run_once: yes
+#  when: item.reboot_required
+#  loop: "{{ install_ad.results }}"
+#  run_once: yes
 
 - name: add a new domain
   win_dsc:
