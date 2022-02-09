@@ -104,8 +104,8 @@
     Password_username: "{{ item.username }}"
     Password_password: "{{ users_password }}"
     DomainName: "{{ dns_domain_name }}"
-    DomainAdministratorCredential_username: "{{ domain_admin_username }}@{{ dns_domain_name }}"
-    DomainAdministratorCredential_password: "{{ domain_admin_password }}"
+    Credential_username: "{{ domain_admin_username }}@{{ dns_domain_name }}"
+    Credential_password: "{{ domain_admin_password }}"
     Enabled: True
     GivenName: "{{ item.name }}"
     Surname: user
