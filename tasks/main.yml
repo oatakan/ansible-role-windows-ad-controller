@@ -1,9 +1,20 @@
 ---
 
-- name: ensure required powershell module is present
-  win_psmodule:
-    name: ActiveDirectoryDsc
-    state: present
+- block:
+    - name: ensure required powershell module is present
+      community.windows.win_psmodule:
+        name: ActiveDirectoryDsc
+        state: present
+  rescue:
+    - name: install latest version of PowershellGet
+      ansible.windows.win_shell: |
+        $ErrorActionPreference = 'Stop'
+        Install-Module -Name 'PowerShellGet' -Repository 'PSGallery' -Scope 'AllUsers' -AllowClobber -Force -Confirm:$false
+
+    - name: ensure required powershell module is present (retry)
+      community.windows.win_psmodule:
+        name: ActiveDirectoryDsc
+        state: present
 
 - name: enable windows features
   win_dsc:
